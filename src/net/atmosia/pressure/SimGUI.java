@@ -37,6 +37,7 @@ public class SimGUI extends JFrame implements MouseListener {
         int y = e.getY() / (this.canvas.getHeight() / this.sim.height());
         System.out.println("working with cell{" + x + "," + y + "}");
         this.toolbox.applyTool(this.sim, x, y);
+        this.sim.tick();
         this.canvas.repaint();
     }
 }
