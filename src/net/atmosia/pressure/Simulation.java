@@ -37,11 +37,19 @@ public class Simulation {
 
     public void inc_near_cell(Cell[][] grid, int x, int y) {
         if(grid[y][x] == null) return;
+
         int delta = this.cells[y][x].delta();
-        int rem = inc_cell(grid, x - 1, y, delta);
-        rem += inc_cell(grid, x, y - 1, delta);
-        rem += inc_cell(grid, x + 1, y, delta);
-        rem += inc_cell(grid, x, y + 1, delta);
+
+        int inc_total = 0;
+        if(this.cells[y][x - 1].canInc()) inc_total++;
+        if(this.cells[y - 1][x].canInc()) inc_total++;
+        if(this.cells[y][x + 1].canInc()) inc_total++;
+        if(this.cells[y + 1][x].canInc()) inc_total++;
+
+        int rem = inc_cell(grid, x - 1, y, delta / inc_total);
+        rem += inc_cell(grid, x, y - 1, delta / inc_total);
+        rem += inc_cell(grid, x + 1, y, delta / inc_total);
+        rem += inc_cell(grid, x, y + 1, delta / inc_total);
         grid[y][x].addRemainder(rem);
     }
 
